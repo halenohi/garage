@@ -20,7 +20,7 @@ module Garage
     end
 
     def encode_to_hash(resource, *args)
-      if resource.respond_to?(:id)
+      if resource.respond_to?(:id) && resource.try(:persisted?)
         cache_key = "#{resource.class.name}:#{resource.id}"
         cache[cache_key] ||= _encode_to_hash(resource, *args)
       else
